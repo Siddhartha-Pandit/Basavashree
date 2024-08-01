@@ -24,7 +24,7 @@ header {
 }
 
 .image {
-  height: 10vh;
+  height: 3rem;
   margin: 0 10px;
 }
 
@@ -102,6 +102,11 @@ nav a:hover {
   display: flex;
   align-items: center;
   z-index: 1;
+}
+
+.auth-container {
+  display: flex;
+  align-items: center;
 }
 
 .profile-container {
@@ -221,26 +226,28 @@ nav a:hover {
 }
 
 /* Mobile and Tablet Navbar */
-@media (max-width: 1347px) {
+@media (max-width: 1023px) {
   .nav-container {
     position: fixed;
     top: 60px;
     left: -250px;
     height: calc(100vh - 60px);
     width: 250px;
-    background-color: rgb(115, 199, 248);
+    /* background-color: rgb(115, 199, 248); */
+    background-color: rgba(115, 199, 248, 1);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     padding-top: 10px;
     transition: left 0.3s ease;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 4px 10px 8px rgba(0, 0, 0, 0.2);
   }
 
   .nav-container.open {
     left: 0;
   }
+
   header {
     justify-content: flex-start;
   }
@@ -283,8 +290,24 @@ nav a:hover {
     background-color: rgba(115, 199, 248, 0.8);
   }
 
+  .auth-container {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    background-color: rgba(115, 199, 248, 1);
+    display: flex;
+    justify-content: center;
+    box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.2);
+  }
+
   .profile-container {
-    display: none;
+    display: flex;
+  }
+
+  .profile-pic {
+    margin: 0 auto;
   }
 }
 
@@ -294,6 +317,7 @@ nav a:hover {
     padding: 6px 0;
     margin: 0 2px;
   }
+
   .footer-container {
     flex-direction: column;
     align-items: center;
