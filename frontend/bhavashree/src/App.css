@@ -13,6 +13,9 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  height: 60px;
+  position: relative;
+  z-index: 1000;
 }
 
 .logo {
@@ -98,6 +101,7 @@ nav a:hover {
 .nav-container {
   display: flex;
   align-items: center;
+  z-index: 1;
 }
 
 .profile-container {
@@ -215,21 +219,23 @@ nav a:hover {
   border-top: 1px solid #444;
   padding-top: 10px;
 }
+
 /* Mobile and Tablet Navbar */
 @media (max-width: 1347px) {
   .nav-container {
     position: fixed;
-    top: 0;
+    top: 60px;
     left: -250px;
-    height: 100vh;
+    height: calc(100vh - 60px);
     width: 250px;
     background-color: rgb(115, 199, 248);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    padding-top: 10px;
     transition: left 0.3s ease;
-    z-index: 1000;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   }
 
   .nav-container.open {
