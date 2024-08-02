@@ -6,6 +6,7 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true); // Set to true for demo purposes
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
+  const [openSubmenus, setOpenSubmenus] = useState({}); // Track open submenus
   const profileMenuRef = useRef(null);
 
   const toggleMenu = () => {
@@ -17,11 +18,18 @@ const Navbar = () => {
   };
 
   const handleLogout = () => {
-    // Handle logout logic here
+    console.log("User logged out");
     setIsLoggedIn(false);
+    setIsProfileMenuOpen(false);
   };
 
-  // Handle clicks outside the profile menu
+  const handleSubmenuToggle = (submenu) => {
+    setOpenSubmenus((prev) => ({
+      ...prev,
+      [submenu]: !prev[submenu],
+    }));
+  };
+
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -33,114 +41,128 @@ const Navbar = () => {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  }, []);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [profileMenuRef]);
 
   return (
     <>
-      <header className="top">
-        <div className="hamburger" onClick={toggleMenu}>
-          &#9776;
-        </div>
+      <header>
         <div className="logo">
-          <img src={logo} alt="logo" className="image" />
-          <h3>Basavashree Souharda Co-operative Society Ltd</h3>
+          <div className="hamburger" onClick={toggleMenu}>
+            &#9776;
+          </div>
+          <img src={logo} alt="Logo" className="image" />
+          <p>Basavashree Souharda Co-operative Society Ltd</p>
         </div>
-        <div className={`nav-container ${isMenuOpen ? "open" : ""}`}>
-          <nav>
+        <div className="nav-menu-holder">
+          <nav className={`nav-container ${isMenuOpen ? "open" : ""}`}>
             <ul>
               <li>
-                <a href="index.html">Home</a>
+                <a href="#">Home</a>
               </li>
               <li>
-                <a href="#">Services</a>
-                <ul>
+                <a href="#">About</a>
+              </li>
+              <li>
+                <a href="#" onClick={() => handleSubmenuToggle("services")}>
+                  Services
+                </a>
+                <ul
+                  style={{
+                    display: openSubmenus.services ? "block" : "none",
+                  }}
+                >
                   <li>
-                    <a href="remittances.html">Remittances</a>
+                    <a href="#">Remittances</a>
                   </li>
                   <li>
-                    <a href="subsidiary.html">Subsidiary</a>
+                    <a href="#">Subsidiary</a>
                   </li>
                   <li>
-                    <a href="fixed_deposit.html">Fixed Deposit</a>
+                    <a href="#">Fixed Deposit</a>
                   </li>
                 </ul>
               </li>
               <li>
-                <a href="contact.html">Contact</a>
-              </li>
-              <li>
-                <a href="#">Loan</a>
-                <ul>
+                <a href="#" onClick={() => handleSubmenuToggle("loan")}>
+                  Loan
+                </a>
+                <ul
+                  style={{
+                    display: openSubmenus.loan ? "block" : "none",
+                  }}
+                >
                   <li>
-                    <a href="personal_loan.html">Personal Loan</a>
+                    <a href="#">Personal Loan</a>
                   </li>
                   <li>
-                    <a href="vehicle_loan.html">Vehicle Loan</a>
+                    <a href="#">Vehicles Loan</a>
                   </li>
                   <li>
-                    <a href="mortgage_loan.html">Mortgage Loan</a>
+                    <a href="#">Mortgage Loan</a>
                   </li>
                   <li>
-                    <a href="gold_loan.html">Gold Loan</a>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <a href="#">Account</a>
-                <ul>
-                  <li>
-                    <a href="saving_account.html">Saving Account</a>
-                  </li>
-                  <li>
-                    <a href="current_account.html">Current Account</a>
-                  </li>
-                  <li>
-                    <a href="regular_account.html">Regular Account</a>
+                    <a href="#">Gold Loan</a>
                   </li>
                 </ul>
               </li>
               <li>
-                <a href="about.html">About Us</a>
+                <a href="#" onClick={() => handleSubmenuToggle("account")}>
+                  Account
+                </a>
+                <ul
+                  style={{
+                    display: openSubmenus.account ? "block" : "none",
+                  }}
+                >
+                  <li>
+                    <a href="#">Saving Account</a>
+                  </li>
+                  <li>
+                    <a href="#">Current Account</a>
+                  </li>
+                  <li>
+                    <a href="#">Regular Account</a>
+                  </li>
+                </ul>
               </li>
               <li>
-                <a href="gallery.html">Gallery</a>
+                <a href="#">Contact</a>
               </li>
-              {!isLoggedIn ? (
-                <>
-                  <li>
-                    <a href="login.html">
-                      <button className="btnlogin" id="login">
-                        Login
-                      </button>
-                    </a>
-                  </li>
-                  <li>
-                    <a href="register.html">
-                      <button className="btnlogin" id="register">
-                        Register
-                      </button>
-                    </a>
-                  </li>
-                </>
-              ) : (
-                <div className="profile-container">
-                  <img
-                    src={profilePic}
-                    alt="Profile"
-                    className="profile-pic"
-                    onClick={toggleProfileMenu}
-                  />
-                  {isProfileMenuOpen && (
-                    <div className="profile-menu" ref={profileMenuRef}>
-                      <p>Somnath Patil</p>
-                      <button onClick={handleLogout}>Logout</button>
-                    </div>
-                  )}
-                </div>
-              )}
+              <li>
+                <a href="#">Gallery</a>
+              </li>
             </ul>
           </nav>
+          <div className="auth-container">
+            {isLoggedIn ? (
+              <div className="profile-container">
+                <img
+                  src={profilePic}
+                  alt="Profile"
+                  className="profile-pic"
+                  onClick={toggleProfileMenu}
+                />
+                {isProfileMenuOpen && (
+                  <div className="profile-menu" ref={profileMenuRef}>
+                    <p>Welcome, User!</p>
+                    <button onClick={handleLogout}>Logout</button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <>
+                <button className="btnlogin" id="login">
+                  Login
+                </button>
+                <button className="btnlogin" id="register">
+                  Register
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </header>
     </>
