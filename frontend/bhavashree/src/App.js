@@ -15,6 +15,7 @@ import AboutUs from "./components/AboutUs";
 import SavingAccount from "./components/SavingAccount";
 import CurrentAccount from "./components/CurrentAccount";
 import RegularAccount from "./components/RegularAccount";
+import Gallery from "./components/Gallery";
 function App() {
   return (
     <Router>
@@ -35,6 +36,7 @@ function App() {
             <Route path="/saving-account" element={<SavingAccount />} />
             <Route path="/current-account" element={<CurrentAccount />} />
             <Route path="/regular-account" element={<RegularAccount />} />
+            <Route path="/gallery" element={<Gallery />} />
             {/*<Route path="/mortgage_loan" element={<MortgageLoanPage />} /> */}
           </Routes>
 

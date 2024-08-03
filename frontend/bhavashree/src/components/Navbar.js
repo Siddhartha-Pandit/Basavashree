@@ -166,7 +166,7 @@ const Navbar = () => {
                 <Link to="/contact">Contact</Link>
               </li>
               <li>
-                <a href="#">Gallery</a>
+                <Link to="/gallery">Gallery</Link>
               </li>
             </ul>
           </nav>
