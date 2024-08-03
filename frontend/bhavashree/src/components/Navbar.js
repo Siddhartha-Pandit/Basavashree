@@ -95,6 +95,7 @@ const Navbar = () => {
               </li>
               <li>
                 <a href="#">About</a>
+                {/* <Link to="/subsidiary">Fixed Deposit</Link> */}
               </li>
               <li>
                 <a href="#" onClick={() => handleSubmenuToggle("services")}>
@@ -113,7 +114,7 @@ const Navbar = () => {
                     <Link to="/subsidiary">Subsidiary</Link>
                   </li>
                   <li>
-                    <Link to="/fixed-deposit">Fixed Deposit</Link>
+                    <Link to="/subsidiary">Fixed Deposit</Link>
                   </li>
                 </ul>
               </li>
@@ -128,16 +129,16 @@ const Navbar = () => {
                   }}
                 >
                   <li>
-                    <a href="#">Personal Loan</a>
+                    <Link to="/personal-loan">Personal Loan</Link>
                   </li>
                   <li>
-                    <a href="#">Vehicles Loan</a>
+                    <Link to="/vechicle-loan">ehicles Loan</Link>
                   </li>
                   <li>
-                    <a href="#">Mortgage Loan</a>
+                    <Link to="/mortage-loan">Mortage Loan</Link>
                   </li>
                   <li>
-                    <a href="#">Gold Loan</a>
+                    <Link to="/gold-loan">Gold Loan</Link>
                   </li>
                 </ul>
               </li>
@@ -163,7 +164,7 @@ const Navbar = () => {
                 </ul>
               </li>
               <li>
-                <a href="#">Contact</a>
+                <Link to="/contact">Contact</Link>
               </li>
               <li>
                 <a href="#">Gallery</a>

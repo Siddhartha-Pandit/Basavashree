@@ -36,11 +36,11 @@ const Footer = () => {
             <Link to="/">Home</Link>
             <a href="about.html">About Us</a>
             <Link to="/remittance">Services</Link>
-            <a href="contact.html">Contact</a>
-            <a href="personal_loan.html">Personal Loan</a>
-            <a href="gold_loan.html">Gold Loan</a>
-            <a href="vehicle_loan.html">Vehicle Loan</a>
-            <a href="mortage_loan.html">Mortgage Loan</a>
+            <Link to="/contact">Contact</Link>
+            <Link to="/personal-loan">Personal Loan</Link>
+            <Link to="/vechicle-loan">Vehicles Loan</Link>
+            <Link to="/mortage-loan">Mortage Loan</Link>
+            <Link to="/gold-loan">Gold Loan</Link>
           </div>
         </div>
       </div>
