@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import logo from "../images/logo.png";
 import profilePic from "../images/profile.jpg"; // Replace with the actual path to your profile image
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -8,6 +9,9 @@ const Navbar = () => {
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [openSubmenus, setOpenSubmenus] = useState({}); // Track open submenus
   const profileMenuRef = useRef(null);
+  const servicesSubmenuRef = useRef(null);
+  const loanSubmenuRef = useRef(null);
+  const accountSubmenuRef = useRef(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -38,13 +42,40 @@ const Navbar = () => {
       ) {
         setIsProfileMenuOpen(false);
       }
+      if (
+        servicesSubmenuRef.current &&
+        !servicesSubmenuRef.current.contains(event.target)
+      ) {
+        setOpenSubmenus((prev) => ({
+          ...prev,
+          services: false,
+        }));
+      }
+      if (
+        loanSubmenuRef.current &&
+        !loanSubmenuRef.current.contains(event.target)
+      ) {
+        setOpenSubmenus((prev) => ({
+          ...prev,
+          loan: false,
+        }));
+      }
+      if (
+        accountSubmenuRef.current &&
+        !accountSubmenuRef.current.contains(event.target)
+      ) {
+        setOpenSubmenus((prev) => ({
+          ...prev,
+          account: false,
+        }));
+      }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [profileMenuRef]);
+  }, [profileMenuRef, servicesSubmenuRef, loanSubmenuRef, accountSubmenuRef]);
 
   return (
     <>
@@ -60,7 +91,7 @@ const Navbar = () => {
           <nav className={`nav-container ${isMenuOpen ? "open" : ""}`}>
             <ul>
               <li>
-                <a href="#">Home</a>
+                <Link to="/">Home</Link>
               </li>
               <li>
                 <a href="#">About</a>
@@ -70,12 +101,13 @@ const Navbar = () => {
                   Services
                 </a>
                 <ul
+                  ref={servicesSubmenuRef}
                   style={{
                     display: openSubmenus.services ? "block" : "none",
                   }}
                 >
                   <li>
-                    <a href="#">Remittances</a>
+                    <Link to="/remittance">Remittance</Link>
                   </li>
                   <li>
                     <a href="#">Subsidiary</a>
@@ -90,6 +122,7 @@ const Navbar = () => {
                   Loan
                 </a>
                 <ul
+                  ref={loanSubmenuRef}
                   style={{
                     display: openSubmenus.loan ? "block" : "none",
                   }}
@@ -113,6 +146,7 @@ const Navbar = () => {
                   Account
                 </a>
                 <ul
+                  ref={accountSubmenuRef}
                   style={{
                     display: openSubmenus.account ? "block" : "none",
                   }}

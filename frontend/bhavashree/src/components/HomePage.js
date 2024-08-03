@@ -11,7 +11,7 @@ import scheduleIcon from "../images/schedule.png";
 import chatIcon from "../images/chat.png";
 import emp1 from "../images/emp1.jpg";
 import emp2 from "../images/emp2.jpg";
-import "../HomePage.css";
+// import "../HomePage.css";
 const HomePage = () => {
   return (
     <main>
