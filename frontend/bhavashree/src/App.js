@@ -11,6 +11,10 @@ import PersonalLoan from "./components/PersonalLoan";
 import VechicleLoan from "./components/VechicleLoan";
 import MortageLoan from "./components/MortageLoan";
 import GoldLoan from "./components/GoldLoan";
+import AboutUs from "./components/AboutUs";
+import SavingAccount from "./components/SavingAccount";
+import CurrentAccount from "./components/CurrentAccount";
+import RegularAccount from "./components/RegularAccount";
 function App() {
   return (
     <Router>
@@ -21,12 +25,16 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/remittance" element={<Remittance />} />
             <Route path="/subsidiary" element={<Subsidiary />} />
+            <Route path="/about" element={<AboutUs />} />
             <Route path="/fixed-deposit" element={<FixedDeposit />} />
             <Route path="/contact" element={<ContactUs />} />
             <Route path="/personal-loan" element={<PersonalLoan />} />
             <Route path="/vechicle-loan" element={<VechicleLoan />} />
             <Route path="/mortage-loan" element={<MortageLoan />} />
             <Route path="/gold-loan" element={<GoldLoan />} />
+            <Route path="/saving-account" element={<SavingAccount />} />
+            <Route path="/current-account" element={<CurrentAccount />} />
+            <Route path="/regular-account" element={<RegularAccount />} />
             {/*<Route path="/mortgage_loan" element={<MortgageLoanPage />} /> */}
           </Routes>
 

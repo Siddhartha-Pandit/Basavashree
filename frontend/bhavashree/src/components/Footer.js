@@ -34,7 +34,7 @@ const Footer = () => {
           </div>
           <div className="footer-links">
             <Link to="/">Home</Link>
-            <a href="about.html">About Us</a>
+            <Link to="/about">About Us</Link>
             <Link to="/remittance">Services</Link>
             <Link to="/contact">Contact</Link>
             <Link to="/personal-loan">Personal Loan</Link>
