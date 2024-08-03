@@ -110,10 +110,10 @@ const Navbar = () => {
                     <Link to="/remittance">Remittance</Link>
                   </li>
                   <li>
-                    <a href="#">Subsidiary</a>
+                    <Link to="/subsidiary">Subsidiary</Link>
                   </li>
                   <li>
-                    <a href="#">Fixed Deposit</a>
+                    <Link to="/fixed-deposit">Fixed Deposit</Link>
                   </li>
                 </ul>
               </li>

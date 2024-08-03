@@ -1,12 +1,11 @@
 import React from "react";
 import img2 from "../images/img2.jpg";
-
+import Image from "./Image";
+import "../HomePage.css";
 const Remittance = () => {
   return (
     <div className="remittance-container">
-      <div className="image-container">
-        <img src={img2} alt="Remittance" className="remittance-image" />
-      </div>
+      <Image />
       <h1>REMITTANCES</h1>
       <div className="text-container">
         <p>

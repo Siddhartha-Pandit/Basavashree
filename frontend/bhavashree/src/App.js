@@ -4,6 +4,8 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import HomePage from "./components/HomePage";
 import Remittance from "./components/Remittance";
+import Subsidiary from "./components/Subsidiary";
+import FixedDeposit from "./components/FixedDeposit";
 function App() {
   return (
     <Router>
@@ -13,8 +15,9 @@ function App() {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/remittance" element={<Remittance />} />
-            {/*<Route path="/gold_loan" element={<GoldLoanPage />} />
-            <Route path="/mortgage_loan" element={<MortgageLoanPage />} /> */}
+            <Route path="/subsidiary" element={<Subsidiary />} />
+            <Route path="/fixed-deposit" element={<FixedDeposit />} />
+            {/*<Route path="/mortgage_loan" element={<MortgageLoanPage />} /> */}
           </Routes>
 
           <Footer />
