@@ -1,7 +1,7 @@
 import React from "react";
 import img2 from "../images/img2.jpg";
 import Image from "./Image";
-import "../HomePage.css";
+
 const Remittance = () => {
   return (
     <div className="remittance-container">

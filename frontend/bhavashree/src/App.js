@@ -16,6 +16,12 @@ import SavingAccount from "./components/SavingAccount";
 import CurrentAccount from "./components/CurrentAccount";
 import RegularAccount from "./components/RegularAccount";
 import Gallery from "./components/Gallery";
+import SignUp from "./components/SignUp";
+import Login from "./components/Login";
+import ForgotPassword from "./components/ForgotPassword";
+import ChangePassword from "./components/ChangePassword";
+import NotFoundPage from "./components/NotFoundPage";
+import SuccessPage from "./components/SuccessPage";
 function App() {
   return (
     <Router>
@@ -37,6 +43,12 @@ function App() {
             <Route path="/current-account" element={<CurrentAccount />} />
             <Route path="/regular-account" element={<RegularAccount />} />
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/change-password" element={<ChangePassword />} />
+            <Route path="/success" element={<SuccessPage />} />
+            <Route path="*" element={<NotFoundPage />} />
             {/*<Route path="/mortgage_loan" element={<MortgageLoanPage />} /> */}
           </Routes>
 

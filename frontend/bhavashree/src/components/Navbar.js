@@ -183,17 +183,22 @@ const Navbar = () => {
                   <div className="profile-menu" ref={profileMenuRef}>
                     <p>Welcome, User!</p>
                     <button onClick={handleLogout}>Logout</button>
+                    <Link to="/change-password">Change Password</Link>
                   </div>
                 )}
               </div>
             ) : (
               <>
-                <button className="btnlogin" id="login">
-                  Login
-                </button>
-                <button className="btnlogin" id="register">
-                  Register
-                </button>
+                <Link to="/login">
+                  <button className="btnlogin" id="login">
+                    Login
+                  </button>
+                </Link>
+                <Link to="/signup">
+                  <button className="btnlogin" id="register">
+                    Register
+                  </button>
+                </Link>
               </>
             )}
           </div>

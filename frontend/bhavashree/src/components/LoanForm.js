@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import "../HomePage.css"; // Ensure this path is correct for your setup
 
 const LoanForm = ({ title }) => {
   const [formData, setFormData] = useState({
