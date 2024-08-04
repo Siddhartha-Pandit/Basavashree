@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
 import Cookies from "js-cookie";
 import { useAuth } from "../AuthContext";
 import axios from "axios";
@@ -8,14 +7,16 @@ import axios from "axios";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState(""); // State for error messages
+  const [loading, setLoading] = useState(false);
   const url = `${process.env.REACT_APP_API_URL}login/`;
   const { login } = useAuth();
   const navigate = useNavigate();
-  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setError(""); // Reset error before making request
     const postData = { email, password };
 
     try {
@@ -30,6 +31,11 @@ const Login = () => {
         navigate("/");
       }
     } catch (err) {
+      if (err.response && err.response.data && err.response.data.error) {
+        setError(err.response.data.error); // Set error from API response
+      } else {
+        setError("An unknown error occurred."); // Fallback error message
+      }
       console.error("Login failed:", err);
     } finally {
       setLoading(false);
@@ -63,6 +69,8 @@ const Login = () => {
               required
             />
           </div>
+          {error && <p style={{ color: "red" }}>{error}</p>}{" "}
+          {/* Display error messages */}
           <button type="submit" className="btn" disabled={loading}>
             {loading ? "Loading..." : "Submit"}
           </button>
