@@ -2,12 +2,15 @@ import React, { useState, useRef, useEffect } from "react";
 import logo from "../images/logo.png";
 import profilePic from "../images/profile.jpg"; // Replace with the actual path to your profile image
 import { Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import { useAuth } from "../AuthContext";
+import axios from "axios";
 
 const Navbar = () => {
+  const { isLoggedIn, user, logout } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(true); // Set to true for demo purposes
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
-  const [openSubmenus, setOpenSubmenus] = useState({}); // Track open submenus
+  const [openSubmenus, setOpenSubmenus] = useState({});
   const profileMenuRef = useRef(null);
   const servicesSubmenuRef = useRef(null);
   const loanSubmenuRef = useRef(null);
@@ -21,10 +24,33 @@ const Navbar = () => {
     setIsProfileMenuOpen(!isProfileMenuOpen);
   };
 
-  const handleLogout = () => {
-    console.log("User logged out");
-    setIsLoggedIn(false);
-    setIsProfileMenuOpen(false);
+  const handleLogout = async () => {
+    const url = `${process.env.REACT_APP_API_URL}logout/`;
+    const accessToken = Cookies.get("access_token");
+
+    try {
+      const response = await axios.post(
+        url,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+
+      if (response.status === 200) {
+        Cookies.remove("access_token");
+        Cookies.remove("refresh_token");
+        Cookies.remove("user");
+        logout();
+        console.log("User logged out successfully");
+      } else {
+        console.error("Error logging out:", response.statusText);
+      }
+    } catch (err) {
+      console.error("Logout request failed:", err);
+    }
   };
 
   const handleSubmenuToggle = (submenu) => {
@@ -174,16 +200,18 @@ const Navbar = () => {
             {isLoggedIn ? (
               <div className="profile-container">
                 <img
-                  src={profilePic}
+                  src={
+                    user ? `${process.env.REACT_APP_API_URL}` + user.photo : ""
+                  }
                   alt="Profile"
                   className="profile-pic"
                   onClick={toggleProfileMenu}
                 />
                 {isProfileMenuOpen && (
                   <div className="profile-menu" ref={profileMenuRef}>
-                    <p>Welcome, User!</p>
+                    <p>Welcome, {user ? user.name : "User"}!</p>
                     <button onClick={handleLogout}>Logout</button>
-                    <Link to="/change-password">Change Password</Link>
+                    <Link to="/change-password">Account Setting</Link>
                   </div>
                 )}
               </div>

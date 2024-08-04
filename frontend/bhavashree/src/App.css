@@ -19,6 +19,8 @@ body {
 #web-content {
   position: absolute;
   top: 60px;
+  margin: 0;
+  padding: 0;
 }
 header {
   background-color: rgb(115, 199, 248);
@@ -101,7 +103,7 @@ nav a:hover {
 
 #register {
   color: white;
-  background-color: rgba(115, 199, 248, 1);
+  background-color: rgba(33, 175, 248, 1);
 }
 
 #login {

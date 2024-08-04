@@ -15,7 +15,7 @@ const Footer = () => {
             <i class="fas fa-map-marker-alt map-icon"></i>
             Basavashree Souharda Co-operative Society Ltd.
             <br />
-            Office: A/P. Zalaki, Chadchan road, tal. Indi,
+            Office: A/P. Zalaki, Chadchan road, tal. India,
             <br />
             Dist. Vijaypura, Karnataka
           </div>

@@ -11,6 +11,7 @@ import scheduleIcon from "../images/schedule.png";
 import chatIcon from "../images/chat.png";
 import emp1 from "../images/emp1.jpg";
 import emp2 from "../images/emp2.jpg";
+import { Link } from "react-router-dom";
 // import "../HomePage.css";
 const HomePage = () => {
   return (
@@ -49,9 +50,10 @@ const HomePage = () => {
               Salary earners quantum of the loan; need base; purpose for meeting
               domestic and medical needs
             </p>
-            <a href="personal_loan.html">
+
+            <Link to="/personal-loan">
               <button>Read More...</button>
-            </a>
+            </Link>
           </div>
 
           <div className="card">
@@ -63,9 +65,10 @@ const HomePage = () => {
               Pledge of gold ornaments only; no loan is granted on gold bars and
               coins.
             </p>
-            <a href="gold_loan.html">
+
+            <Link to="/gold-loan">
               <button>Read More...</button>
-            </a>
+            </Link>
           </div>
 
           <div className="card">
@@ -78,9 +81,9 @@ const HomePage = () => {
               cases at the discretion of the board; margin, 40% on the valuation
               of the property.
             </p>
-            <a href="mortage_loan.html">
+            <Link to="/mortage-loan">
               <button>Read More...</button>
-            </a>
+            </Link>
           </div>
         </div>
       </section>
