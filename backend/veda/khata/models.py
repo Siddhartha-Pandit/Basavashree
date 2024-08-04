@@ -163,12 +163,10 @@ class depositetype(models.Model):
 class applyloan(models.Model):
     LOAN_TYPE=[
         ('PERSONAL LOAN','personal loan'),
-        ('HOME LOAN','home loan'),
-        ('EDUCATION LOAN','education loan'),
-        ('CAR LOAN','car loan'),
-        ('TWO WHEELER LOAN','two wheeler loan'),
-        ('GOLD LOAN','gold loan'),
-        ('PROPERTY LOAN','property loan')
+        ('VECHICLES LOAN','vechicles loan'),
+        ('MORTAGE LOAN','mortage loan'),
+        ('GOLD LOAN','gold loan')
+       
 
     ]
     name=models.CharField(max_length=255,default='')

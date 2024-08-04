@@ -35,6 +35,7 @@ class LoanSerializer(serializers.ModelSerializer):
     class Meta:
         model=applyloan
         fields='__all__'
+        # fields='__all__'
 
 
 class HeroImageSerializer(serializers.ModelSerializer):

@@ -1,27 +1,113 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useNavigate, Link } from "react-router-dom";
+import Cookies from "js-cookie";
+import axios from "axios";
 
 const LoanForm = ({ title }) => {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    address: "",
-    pan: "",
-    aadhar: "",
-    amount: "",
-    tenure: "",
-    loanType: "PERSONAL LOAN",
-  });
+  const [user, setUser] = useState({});
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [aadhaar, setAadhaar] = useState("");
+  const [pan, setPan] = useState("");
+  const [amount, setAmount] = useState(0);
+  const [tenure, setTenure] = useState(0);
+  const [loantype, setLoanType] = useState("PERSONAL LOAN");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [userLoading, setUserLoading] = useState(true);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const userData = Cookies.get("user");
+    const accessToken = Cookies.get("access_token");
+    if (accessToken) {
+      setIsLoggedIn(true);
+    }
+    if (userData) {
+      try {
+        const parsedUser = JSON.parse(userData);
+        setUser(parsedUser);
+        setName(parsedUser.name);
+        setEmail(parsedUser.email);
+        setAadhaar(parsedUser.aadhar);
+        setPan(parsedUser.pan);
+
+        setUserLoading(false);
+      } catch (error) {
+        console.error("Failed to parse user data:", error);
+      }
+    } else {
+      console.error("No user data found in cookies.");
+    }
+  }, [navigate, title]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+    switch (name) {
+      case "address":
+        setAddress(value);
+        break;
+      case "amount":
+        setAmount(value);
+        break;
+      case "tenure":
+        setTenure(value);
+        break;
+      case "loanType":
+        setLoanType(value);
+        break;
+      default:
+        break;
+    }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Handle form submission logic here
-    console.log("Form submitted:", formData);
+    setLoading(true);
+
+    const accessToken = Cookies.get("access_token");
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_URL}loan/`,
+        {
+          name,
+          email,
+          address,
+          pan,
+          aadhaar,
+          amount,
+          tenure,
+          loantype,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        }
+      );
+      if (response.status === 200) {
+        console.log("Loan application submitted:", response.data);
+        navigate("/success");
+      }
+    } catch (err) {
+      console.error("Loan application failed:", err);
+      // Optionally, handle error and show message
+    } finally {
+      setLoading(false);
+    }
   };
+
+  if (userLoading) {
+    return (
+      <div>
+        You are not logged in please
+        <Link to="/login"> login to apply loan</Link>
+      </div>
+    );
+  }
 
   return (
     <div className="form-root">
@@ -35,8 +121,8 @@ const LoanForm = ({ title }) => {
               id="name"
               name="name"
               placeholder="Full name"
-              value={formData.name}
-              onChange={handleChange}
+              value={name}
+              disabled
             />
           </div>
           <div className="form-group">
@@ -46,8 +132,9 @@ const LoanForm = ({ title }) => {
               id="email"
               name="email"
               placeholder="Email"
-              value={formData.email}
-              onChange={handleChange}
+              value={email}
+              required
+              disabled
             />
           </div>
           <div className="form-group">
@@ -57,19 +144,9 @@ const LoanForm = ({ title }) => {
               id="address"
               name="address"
               placeholder="Address"
-              value={formData.address}
+              value={address}
               onChange={handleChange}
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="pan">PAN Card Number:</label>
-            <input
-              type="text"
-              id="pan"
-              name="pan"
-              placeholder="PAN card number"
-              value={formData.pan}
-              onChange={handleChange}
+              required
             />
           </div>
           <div className="form-group">
@@ -79,8 +156,21 @@ const LoanForm = ({ title }) => {
               id="aadhar"
               name="aadhar"
               placeholder="Aadhaar number"
-              value={formData.aadhar}
-              onChange={handleChange}
+              value={aadhaar}
+              required
+              disabled
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="pan">PAN Card Number:</label>
+            <input
+              type="text"
+              id="pan"
+              name="pan"
+              placeholder="PAN card number"
+              value={pan}
+              required
+              disabled
             />
           </div>
           <div className="form-group">
@@ -90,7 +180,7 @@ const LoanForm = ({ title }) => {
               id="amount"
               name="amount"
               placeholder="Loan amount"
-              value={formData.amount}
+              value={amount}
               onChange={handleChange}
             />
           </div>
@@ -101,7 +191,7 @@ const LoanForm = ({ title }) => {
               id="tenure"
               name="tenure"
               placeholder="Loan tenure in years"
-              value={formData.tenure}
+              value={tenure}
               onChange={handleChange}
             />
           </div>
@@ -110,21 +200,21 @@ const LoanForm = ({ title }) => {
             <select
               name="loanType"
               id="loanType"
-              value={formData.loanType}
+              value={loantype}
               onChange={handleChange}
             >
-              <option value="...">...</option>
               <option value="PERSONAL LOAN">Personal Loan</option>
-              <option value="HOME LOAN">Home Loan</option>
-              <option value="EDUCATION LOAN">Education Loan</option>
-              <option value="CAR LOAN">Car Loan</option>
-              <option value="TWO WHEELER LOAN">Two Wheeler Loan</option>
+              <option value="VECHICLE LOAN">Vechicle Loan</option>
+              <option value="MORTAGE LOAN">Mortage Loan</option>
               <option value="GOLD LOAN">Gold Loan</option>
-              <option value="PROPERTY LOAN">Property Loan</option>
             </select>
           </div>
-          <button type="submit" className="btn">
-            Submit Application
+          <button
+            type="submit"
+            className="btn"
+            disabled={loading && !isLoggedIn}
+          >
+            {loading ? "Submitting..." : "Submit Application"}
           </button>
         </form>
       </div>

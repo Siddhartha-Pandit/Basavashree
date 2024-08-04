@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import logo from "../images/logo.png";
-import profilePic from "../images/profile.jpg"; // Replace with the actual path to your profile image
 import { Link } from "react-router-dom";
 import Cookies from "js-cookie";
 import { useAuth } from "../AuthContext";
