@@ -8,11 +8,11 @@ const LoanForm = ({ title }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
-  const [aadhaar, setAadhaar] = useState("");
+  const [aadhar, setAadhar] = useState("");
   const [pan, setPan] = useState("");
   const [amount, setAmount] = useState(0);
   const [tenure, setTenure] = useState(0);
-  const [loantype, setLoanType] = useState("PERSONAL LOAN");
+  const [loantype, setLoanType] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userLoading, setUserLoading] = useState(true);
@@ -31,9 +31,9 @@ const LoanForm = ({ title }) => {
         setUser(parsedUser);
         setName(parsedUser.name);
         setEmail(parsedUser.email);
-        setAadhaar(parsedUser.aadhar);
+        setAadhar(parsedUser.aadhar);
         setPan(parsedUser.pan);
-
+        console.log(pan);
         setUserLoading(false);
       } catch (error) {
         console.error("Failed to parse user data:", error);
@@ -77,7 +77,7 @@ const LoanForm = ({ title }) => {
           email,
           address,
           pan,
-          aadhaar,
+          aadhar,
           amount,
           tenure,
           loantype,
@@ -156,7 +156,7 @@ const LoanForm = ({ title }) => {
               id="aadhar"
               name="aadhar"
               placeholder="Aadhaar number"
-              value={aadhaar}
+              value={aadhar}
               required
               disabled
             />
