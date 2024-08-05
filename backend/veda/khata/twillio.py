@@ -8,6 +8,7 @@ def send_msg(to,text):
   
     account_sid = "ADD YOUR OWN TWILLIO ACCOUNT SID"
     auth_token = "ADD YOUR OWN TWILLIO AUTH TOKEN"
+    
   
   
     if not account_sid or not auth_token:

@@ -9,7 +9,7 @@ const SuccessPage = () => {
         </div>
         <h1>Success</h1>
         <p>
-          We received your purchase request;
+          We received your data
           <br />
           we'll be in touch shortly!
         </p>

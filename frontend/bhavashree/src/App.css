@@ -230,7 +230,7 @@ nav a:hover {
 }
 
 .social-icons a:hover {
-  color: #007bff;
+  color: rgba(115, 199, 248, 1);
 }
 
 .footer-links {
@@ -245,7 +245,7 @@ nav a:hover {
 }
 
 .footer-links a:hover {
-  color: #007bff;
+  color: rgba(115, 199, 248, 1);
 }
 
 .footer-bottom {
@@ -357,7 +357,7 @@ h3 {
 }
 
 .card button {
-  background: #007bff;
+  background: rgba(115, 199, 248, 1);
   border: none;
   color: #fff;
   padding: 10px 20px;
@@ -367,7 +367,7 @@ h3 {
 }
 
 .card button:hover {
-  background: #0056b3;
+  background: rgba(115, 199, 248, 1);
 }
 
 .help {
@@ -519,7 +519,7 @@ h3 {
 }
 
 .btn {
-  background-color: rgb(84, 105, 212);
+  background-color: rgba(115, 199, 248, 1);
   color: #fff;
   font-weight: 600;
   cursor: pointer;
@@ -598,7 +598,7 @@ h3 {
 .link_404 {
   color: #fff !important;
   padding: 10px 20px;
-  background: #39ac31;
+  background: rgba(115, 199, 248, 1);
   margin: 20px 0;
   display: inline-block;
   text-decoration: none;
@@ -642,14 +642,14 @@ h3 {
 }
 
 .checkmark {
-  color: #9abc66;
+  color: rgba(115, 199, 248, 1);
   font-size: 100px;
   line-height: 200px;
   margin-left: -15px;
 }
 
 .checkmark h1 {
-  color: #88b04b;
+  color: rgba(115, 199, 248, 1);
   font-family: "Nunito Sans", "Helvetica Neue", sans-serif;
   font-weight: 900;
   font-size: 40px;
@@ -745,7 +745,7 @@ h3 {
 
 .settings-icon {
   font-size: 40px;
-  color: #007bff;
+  color: rgba(115, 199, 248, 1);
   margin-bottom: 10px;
 }
 
@@ -753,7 +753,7 @@ h3 {
   display: inline-block;
   margin-top: 10px;
   padding: 10px 20px;
-  background-color: #007bff;
+  background-color: rgba(115, 199, 248, 1);
   color: #fff;
   border-radius: 4px;
   text-decoration: none;
@@ -761,7 +761,7 @@ h3 {
 }
 
 .settings-link:hover {
-  background-color: #0056b3;
+  background-color: rgba(115, 199, 248, 1);
 }
 /* Mobile and Tablet Navbar */
 @media (max-width: 1070px) {

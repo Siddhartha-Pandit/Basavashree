@@ -66,7 +66,7 @@ const RegisterForm = () => {
     if (validateForm()) {
       await doPost(formData);
       if (!loading) {
-        navigate("/success");
+        navigate("/login");
       }
     }
   };
