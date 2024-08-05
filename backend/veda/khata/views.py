@@ -20,7 +20,7 @@ from django.core.mail import send_mail
 from django.shortcuts import HttpResponse
 from django.utils.crypto import get_random_string
 from django.shortcuts import render
-
+from .twillio import send_msg
 User = get_user_model()
 
 class RegisterView(generics.CreateAPIView):
@@ -413,11 +413,14 @@ class GeneratedOtpView(APIView):
         
         try:
             user=User.objects.get(email=email)
+            phone=user.phone
         except:
             return Response({"error":"User with this email doesn't exists"},status=status.HTTP_404_NOT_FOUND)
         otp_instance=OTP.generate_otp(email=email)
         subject='Forgot Passowrd OTP'
         message=f'Your OTP is: {otp_instance.otp}'
+        
+        send_msg("+91"+phone,message)
         recipient_list=[email]
         from_email=settings.EMAIL_HOST_USER
 
@@ -426,7 +429,47 @@ class GeneratedOtpView(APIView):
             return Response({"message":"OTP sent to your email","isoptsent":True})
         except:
             return Response({"error":"Failed to send otp","isoptsent":False},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class sendtoverifyphone(APIView):
+    permission_classes=[IsAuthenticated]
+    def post(self,request):
+        user=request.user
+        try:
+            otp_instance=OTP.generate_otp(email=user.email)
+            message=f'Your OTP is: {otp_instance.otp}'
         
+            send_msg("+91"+user.phone,message)
+            return Response({"message":"OTP sent"},status=status.HTTP_200_OK)
+        except:
+            return Response({"error":"Could't generete otp"},status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+class VerifyPhone(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        otp = request.data.get('otp')
+        user = request.user
+
+        try:
+            otp_obj = OTP.objects.get(user__email=user.email, otp=otp, used=False)
+            if otp_obj.used:
+                return Response({"error": "OTP has already been used"}, status=status.HTTP_400_BAD_REQUEST)
+            elif otp_obj.is_expired():
+                return Response({"error": "Invalid OTP or OTP has expired"}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Mark the OTP as used
+            otp_obj.used = True
+            otp_obj.save()
+
+        except OTP.DoesNotExist:
+            return Response({"error": "Invalid OTP", "isphoneverified": False}, status=status.HTTP_400_BAD_REQUEST)
+        
+        user.is_phone_verified = True
+        user.save()
+        return Response({"message": "Phone number verified", "isphoneverified": True}, status=status.HTTP_200_OK)   
+
+    
+
 class VerifyOTPView(APIView):
     def post(self,request):
         email=request.data.get('email')

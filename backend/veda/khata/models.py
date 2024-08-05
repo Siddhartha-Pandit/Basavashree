@@ -19,7 +19,8 @@ class User(AbstractUser):
     photo = models.ImageField(upload_to='user_photos/',  null=True ,)
     aadharimg = models.FileField(upload_to='user_aadhar/', blank=True, null=True ,)
     panimg = models.FileField(upload_to='user_pan_cards/', blank=True, null=True,)
-
+    is_customer_verified=models.BooleanField(default=False)
+    is_phone_verified=models.BooleanField(default=False)
    
     user_type=models.CharField(max_length=20,choices=USER_TYPE, default='customer')
     
