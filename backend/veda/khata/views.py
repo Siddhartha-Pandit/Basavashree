@@ -1,6 +1,6 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import UserSerializer,AccountSerializer,DepositeSerializer,LoanSerializer,HeroImageSerializer,VerificationSerializer
+from .serializers import UserSerializer,AccountSerializer,DepositeSerializer,LoanSerializer,HeroImageSerializer,VerificationSerializer,UserViewSerializer
 from rest_framework import status,views
 import jwt,datetime
 from .models import User,openaccount,depositetype,applyloan,heroImages,OTP
@@ -71,13 +71,15 @@ class LoginView(APIView):
         user=authenticate(request,email=email,password=password)
 
         if user is not None:
-            if not user.is_verified:
+            if  user.is_verified:
+                login(request,user)
+                refresh=RefreshToken.for_user(user)
+                user_data = UserViewSerializer(user).data
+                return Response({'refresh':str(refresh),'access':str(refresh.access_token),'user':user_data},status=status.HTTP_200_OK)
+            else:
                 return Response({"error": "Account is not verified"}, status=status.HTTP_403_FORBIDDEN)
 
-            login(request,user)
-            refresh=RefreshToken.for_user(user)
-            user_data = UserSerializer(user).data
-            return Response({'refresh':str(refresh),'access':str(refresh.access_token),'user':user_data},status=status.HTTP_200_OK)
+           
         else:
             return Response({"error":"Login failed in valid email or password"},status=status.HTTP_401_UNAUTHORIZED)
 
@@ -139,11 +141,15 @@ class ApplyLoan(APIView):
     permission_classes=[IsAuthenticated]
     def post(self,request):
         serializer=LoanSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            serializer.save()
-            return Response(serializer.data)
+        user=request.user
+        if user.is_phone_verified:
+            if serializer.is_valid(raise_exception=True):
+                serializer.save()
+                return Response(serializer.data)
+            else:
+                return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
         else:
-            return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+            return Response({"error":"Phone is not verified Please verify  "},status=status.HTTP_400_BAD_REQUEST)
 
 
 class newbankaccdetail(APIView):
@@ -434,7 +440,10 @@ class sendtoverifyphone(APIView):
     permission_classes=[IsAuthenticated]
     def post(self,request):
         user=request.user
+        phone=request.data.get('phone')
         try:
+            if phone != user.phone:
+                return Response({"error":"Phone does not match"},status=status.HTTP_400_BAD_REQUEST)
             otp_instance=OTP.generate_otp(email=user.email)
             message=f'Your OTP is: {otp_instance.otp}'
         

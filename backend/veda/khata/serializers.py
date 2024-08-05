@@ -21,6 +21,13 @@ class UserSerializer(serializers.ModelSerializer):
         validated_data['password'] = make_password(validated_data['password'])
         return super().create(validated_data)
 
+class UserViewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['id', 'name', 'email', 'phone', 'pan', 'aadhar', 'photo', 'aadharimg', 'panimg', 'user_type', 'is_phone_verified']
+
+  
+
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model=openaccount

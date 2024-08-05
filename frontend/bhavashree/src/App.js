@@ -1,4 +1,5 @@
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { BrowserRouter as Router, Route, Routes, Link } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
@@ -22,12 +23,56 @@ import ForgotPassword from "./components/ForgotPassword";
 import ChangePassword from "./components/ChangePassword";
 import NotFoundPage from "./components/NotFoundPage";
 import SuccessPage from "./components/SuccessPage";
+import VerifyPhone from "./components/VerifyPhone";
+import Cookies from "js-cookie";
+import AccountSettings from "./components/AccountSettings";
+
 function App() {
+  const [isPhoneVerified, setPhoneVerified] = useState(true);
+  const [user, setUser] = useState({});
+
+  // Function to update user data and phone verification status
+  const updateUserData = () => {
+    const accessToken = Cookies.get("access_token");
+    const userData = Cookies.get("user");
+
+    if (accessToken && userData) {
+      const parsedUser = JSON.parse(userData);
+      setUser(parsedUser);
+      setPhoneVerified(parsedUser.is_phone_verified);
+    }
+  };
+  console.log(user);
+
+  useEffect(() => {
+    updateUserData();
+  }, []);
+  const handleVerifyPhoneClick = () => {
+    setPhoneVerified(true);
+  };
+  const handleCloseWarning = () => {
+    setPhoneVerified(true);
+  };
+  // Optionally, you can add an effect that listens to changes in the cookies
+  // and updates the state accordingly.
+
   return (
     <Router>
       <div className="App">
         <Navbar />
         <div id="web-content">
+          {!isPhoneVerified && (
+            <div className="verify-phone-warning">
+              Please verify your Phone number
+              <Link to="/verify-phone" onClick={handleVerifyPhoneClick}>
+                {" "}
+                here
+              </Link>
+              <button className="close-warning" onClick={handleCloseWarning}>
+                &times;
+              </button>
+            </div>
+          )}
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/remittance" element={<Remittance />} />
@@ -48,10 +93,10 @@ function App() {
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/change-password" element={<ChangePassword />} />
             <Route path="/success" element={<SuccessPage />} />
+            <Route path="/verify-phone" element={<VerifyPhone />} />
+            <Route path="/account-settings" element={<AccountSettings />} />
             <Route path="*" element={<NotFoundPage />} />
-            {/*<Route path="/mortgage_loan" element={<MortgageLoanPage />} /> */}
           </Routes>
-
           <Footer />
         </div>
       </div>

@@ -14,6 +14,7 @@ const Navbar = () => {
   const servicesSubmenuRef = useRef(null);
   const loanSubmenuRef = useRef(null);
   const accountSubmenuRef = useRef(null);
+  const sideNavRef = useRef(null); // Reference for the side navigation menu
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -94,13 +95,22 @@ const Navbar = () => {
           account: false,
         }));
       }
+      if (sideNavRef.current && !sideNavRef.current.contains(event.target)) {
+        setIsMenuOpen(false); // Close side navigation menu
+      }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [profileMenuRef, servicesSubmenuRef, loanSubmenuRef, accountSubmenuRef]);
+  }, [
+    profileMenuRef,
+    servicesSubmenuRef,
+    loanSubmenuRef,
+    accountSubmenuRef,
+    sideNavRef,
+  ]);
 
   return (
     <>
@@ -113,7 +123,10 @@ const Navbar = () => {
           <p>Basavashree Souharda Co-operative Society Ltd</p>
         </div>
         <div className="nav-menu-holder">
-          <nav className={`nav-container ${isMenuOpen ? "open" : ""}`}>
+          <nav
+            ref={sideNavRef} // Attach ref to the side navigation menu
+            className={`nav-container ${isMenuOpen ? "open" : ""}`}
+          >
             <ul>
               <li>
                 <Link to="/">Home</Link>
@@ -210,7 +223,7 @@ const Navbar = () => {
                   <div className="profile-menu" ref={profileMenuRef}>
                     <p>Welcome, {user ? user.name : "User"}!</p>
                     <button onClick={handleLogout}>Logout</button>
-                    <Link to="/change-password">Account Setting</Link>
+                    <Link to="/account-settings">Account Setting</Link>
                   </div>
                 )}
               </div>

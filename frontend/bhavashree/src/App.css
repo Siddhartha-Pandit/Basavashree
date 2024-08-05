@@ -662,6 +662,107 @@ h3 {
   font-size: 20px;
   margin: 0;
 }
+/*verify phone*/
+
+.verify-phone-warning {
+  display: flex;
+  background-color: #f8d7da; /* Light red for warning */
+  color: #721c24; /* Dark red text color */
+  border: 1px solid #f5c6cb; /* Light red border */
+  border-radius: 5px;
+  padding: 20px;
+  align-items: center;
+  justify-items: center;
+  width: 100%; /* Make it full width */
+  max-width: 95vw; /* Set a max-width for larger screens */
+  margin: 10px auto; /* Center the box */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  position: relative;
+}
+.verify-phone-warning a {
+  color: #721c24; /* Dark red text color */
+}
+.close-warning {
+  /* display: flex; */
+  position: absolute;
+  background: none;
+  border: none;
+  top: 3px;
+  right: 10px;
+  font-size: 20px;
+  cursor: pointer;
+  color: #000;
+
+  /* justify-content: flex-end; */
+}
+
+.close-warning:focus {
+  outline: none;
+}
+
+/*account settings*/
+.account-settings {
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.account-settings-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.account-settings-description {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 16px;
+  color: #666;
+}
+
+.settings-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.settings-card {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+  flex: 1;
+  max-width: calc(50% - 10px);
+  box-sizing: border-box;
+  text-align: center;
+  transition: transform 0.3s;
+}
+
+.settings-card:hover {
+  transform: translateY(-5px);
+}
+
+.settings-icon {
+  font-size: 40px;
+  color: #007bff;
+  margin-bottom: 10px;
+}
+
+.settings-link {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s;
+}
+
+.settings-link:hover {
+  background-color: #0056b3;
+}
 /* Mobile and Tablet Navbar */
 @media (max-width: 1070px) {
   .nav-container {
@@ -867,6 +968,25 @@ h3 {
 
   .checkmark p {
     font-size: 18px;
+  }
+  /*verify phone */
+  @media (max-width: 768px) {
+    .verify-phone-warning {
+      padding: 10px;
+      font-size: 14px;
+    }
+    verify-phone-warning {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .close-warning {
+      align-self: flex-end;
+    }
+    /*account-settings*/
+    .settings-card {
+      max-width: 100%;
+    }
   }
 }
 @media (max-width: 480px) {

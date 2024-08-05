@@ -16,6 +16,7 @@ const LoanForm = ({ title }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
   const [userLoading, setUserLoading] = useState(true);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const navigate = useNavigate();
 
@@ -66,6 +67,7 @@ const LoanForm = ({ title }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
+    setErrorMessage(""); // Reset error message
 
     const accessToken = Cookies.get("access_token");
 
@@ -93,8 +95,13 @@ const LoanForm = ({ title }) => {
         navigate("/success");
       }
     } catch (err) {
-      console.error("Loan application failed:", err);
-      // Optionally, handle error and show message
+      if (err.response) {
+        console.error("Loan application failed:", err.response.data);
+        setErrorMessage(err.response.data.error || "An error occurred.");
+      } else {
+        console.error("Loan application failed:", err);
+        setErrorMessage("An error occurred. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
@@ -103,8 +110,8 @@ const LoanForm = ({ title }) => {
   if (userLoading) {
     return (
       <div>
-        You are not logged in please
-        <Link to="/login"> login to apply loan</Link>
+        You are not logged in. Please{" "}
+        <Link to="/login">login to apply for a loan</Link>.
       </div>
     );
   }
@@ -114,6 +121,7 @@ const LoanForm = ({ title }) => {
       <div className="form-container">
         <h2 className="form-title">{title}</h2>
         <form id="loanForm" onSubmit={handleSubmit}>
+          {errorMessage && <div className="error-message">{errorMessage}</div>}
           <div className="form-group">
             <label htmlFor="name">Name:</label>
             <input
@@ -182,6 +190,7 @@ const LoanForm = ({ title }) => {
               placeholder="Loan amount"
               value={amount}
               onChange={handleChange}
+              required
             />
           </div>
           <div className="form-group">
@@ -193,6 +202,7 @@ const LoanForm = ({ title }) => {
               placeholder="Loan tenure in years"
               value={tenure}
               onChange={handleChange}
+              required
             />
           </div>
           <div className="form-group">
@@ -202,17 +212,18 @@ const LoanForm = ({ title }) => {
               id="loanType"
               value={loantype}
               onChange={handleChange}
+              required
             >
               <option value="PERSONAL LOAN">Personal Loan</option>
-              <option value="VECHICLE LOAN">Vechicle Loan</option>
-              <option value="MORTAGE LOAN">Mortage Loan</option>
+              <option value="VEHICLE LOAN">Vehicle Loan</option>
+              <option value="MORTGAGE LOAN">Mortgage Loan</option>
               <option value="GOLD LOAN">Gold Loan</option>
             </select>
           </div>
           <button
             type="submit"
             className="btn"
-            disabled={loading && !isLoggedIn}
+            disabled={loading || !isLoggedIn}
           >
             {loading ? "Submitting..." : "Submit Application"}
           </button>

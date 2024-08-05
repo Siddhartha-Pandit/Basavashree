@@ -124,32 +124,25 @@ const HomePage = () => {
           See what our customers have to say about Borrow products, people, and
           services.
         </p>
-        <table border="0" align="center">
-          <tr>
-            <td>
-              <img src={emp1} className="emp" alt="Testimonial 1" />
-            </td>
-            <td>
-              <img src={emp2} className="emp" alt="Testimonial 2" />
-            </td>
-          </tr>
-          <tr>
-            <td>
-              <i>
-                "I loved the customer service you guys provided me. That was
-                very nice and patient with questions I had. I would really like
-                definitely come back here."
-              </i>
-            </td>
-            <td>
-              <i>
-                "I am very much happy to got your and your team's honest
-                commitment for processing my loan application. I wish you all
-                the best. Regards."
-              </i>
-            </td>
-          </tr>
-        </table>
+        {/* "container2"  "card2" */}
+        <div className="container2">
+          <div className="card2">
+            <img src={emp1} className="emp" alt="Testimonial 1" />
+            <p>
+              "I loved the customer service you guys provided me. That was very
+              nice and patient with questions I had. I would really like
+              definitely come back here."
+            </p>
+          </div>
+          <div className="card2">
+            <img src={emp2} className="emp" alt="Testimonial 2" />
+            <p>
+              "I am very much happy to got your and your team's honest
+              commitment for processing my loan application. I wish you all the
+              best. Regards."
+            </p>
+          </div>
+        </div>
       </section>
     </main>
   );
