@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 const VerifyPhone = () => {
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNo, setPhoneNo] = useState("");
   const [otp, setOtp] = useState("");
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
@@ -18,7 +19,7 @@ const VerifyPhone = () => {
     const userData = Cookies.get("user");
     const user = JSON.parse(userData);
     if (user) {
-      //   setPhoneNumber(user.phone); // Initialize phoneNumber with user's phone number from cookies
+      setPhoneNo(user.phone); // Initialize phoneNumber with user's phone number from cookies
     }
   }, []);
 
@@ -101,6 +102,7 @@ const VerifyPhone = () => {
     <div className="form-root">
       <div className="form-container">
         <h2 className="form-title">Verify Phone Number</h2>
+        <p>Your register phone number is XXXXXXXX{phoneNo.slice(-2)}</p>
         {!otpRequested ? (
           <form
             onSubmit={(e) => {

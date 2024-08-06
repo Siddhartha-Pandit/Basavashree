@@ -60,7 +60,7 @@ const ForgotPassword = () => {
     await resetPassword({ email, otp, password: newPassword });
     if (resetPasswordData && resetPasswordData.ispasswordreset) {
       alert("Password reset successfully");
-      navigate("/");
+      navigate("/login");
     }
   };
 

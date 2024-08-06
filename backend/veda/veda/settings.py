@@ -153,6 +153,8 @@ AUTH_USER_MODEL='khata.User'
 # CORS_ALLOW_ALL_ORIGINS=True
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
+    'http://172.16.0.39:3000',
+    'http://127.0.0.1:3000'
 ]
 CORS_ALLOW_CREDENTIALS = True
 

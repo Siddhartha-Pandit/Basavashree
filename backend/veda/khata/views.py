@@ -63,7 +63,7 @@ class LoginView(APIView):
     def post(self,request):
         email=request.data.get('email')
         password=request.data.get('password')
-        print(f"email : {email} password {password}")
+     
 
         if not email or not password:
             return Response({"error":"Email or password are required"},status=status.HTTP_400_BAD_REQUEST)
@@ -95,7 +95,7 @@ class UserView(APIView):
        
         print(token)
         if not token:
-            print("dint get token")
+           
             raise AuthenticationFailed('Unauthenticated')
 
         try:

@@ -6,9 +6,9 @@ from twilio.rest import Client
 # and set the environment variables. See http://twil.io/secure
 def send_msg(to,text):
   
-    account_sid = "ADD YOUR OWN TWILLIO ACCOUNT SID"
-    auth_token = "ADD YOUR OWN TWILLIO AUTH TOKEN"
     
+    account_sid = "ADD_YOUR_TWILLIO_SID"
+    auth_token = "ADD_YOUR_TWILLIO_AUTH_TOKEN"
   
   
     if not account_sid or not auth_token:

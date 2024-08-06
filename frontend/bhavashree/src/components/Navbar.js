@@ -14,10 +14,11 @@ const Navbar = () => {
   const servicesSubmenuRef = useRef(null);
   const loanSubmenuRef = useRef(null);
   const accountSubmenuRef = useRef(null);
-  const sideNavRef = useRef(null); // Reference for the side navigation menu
+  const sideNavRef = useRef(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+    console.log(isMenuOpen);
   };
 
   const toggleProfileMenu = () => {
@@ -96,7 +97,7 @@ const Navbar = () => {
         }));
       }
       if (sideNavRef.current && !sideNavRef.current.contains(event.target)) {
-        setIsMenuOpen(false); // Close side navigation menu
+        setIsMenuOpen(false);
       }
     };
 
